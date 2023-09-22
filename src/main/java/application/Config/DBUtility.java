@@ -1,6 +1,7 @@
 package application.Config;
 
 //import org.apache.commons.dbutils.BasicDataSource;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -13,18 +14,15 @@ public class DBUtility {
     public static String password;
     private static Connection instance;
 
-
     static {
         ResourceBundle rd = ResourceBundle.getBundle("db");
         driver = rd.getString("db.driver");
         url = rd.getString("db.url");
         username = rd.getString("db.username");
         password = rd.getString("db.password");
-    }
-
-    private DBUtility() {
 
     }
+    private DBUtility() {}
 
     public static Connection getInstance() {
         if (instance == null)
@@ -35,7 +33,7 @@ public class DBUtility {
     private Connection provideConnection() {
         Connection connection = null;
         try {
-            Class.forName("org.postgresql.Driver");
+            Class.forName(driver);
         } catch (ClassNotFoundException e) {
             System.out.println(e.getMessage());
         }
