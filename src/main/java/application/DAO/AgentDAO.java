@@ -44,7 +44,7 @@ public class AgentDAO extends UserDAO implements CRUD<Agent> {
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }
-        return result > 1;
+        return result > 0;
     }
 
     @Override
