@@ -1,32 +1,34 @@
 package application.DAO;
 
+import application.DTO.DocType;
 import application.Interfaces.CRUD;
 
 import java.util.List;
 
-public class DocTypeDAO implements CRUD {
+public class DocTypeDAO implements CRUD<DocType> {
+
     @Override
-    public Object get(Object object) {
+    public DocType get(DocType object) {
         return null;
     }
 
     @Override
-    public List<Object> getAll(Object object) {
+    public List<DocType> getAll(DocType object) {
         return null;
     }
 
     @Override
-    public Boolean add(Object object) {
+    public Boolean add(DocType obj) {
         return null;
     }
 
     @Override
-    public Boolean update(Object object) {
+    public Boolean update(DocType object) {
         return null;
     }
 
     @Override
-    public Boolean delete(Object object) {
+    public Boolean delete(DocType object) {
         return null;
     }
 }

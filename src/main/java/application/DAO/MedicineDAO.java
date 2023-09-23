@@ -1,32 +1,34 @@
 package application.DAO;
 
+import application.DTO.Medicine;
 import application.Interfaces.CRUD;
 
 import java.util.List;
 
-public class MedicineDAO implements CRUD {
+public class MedicineDAO implements CRUD<Medicine> {
+
     @Override
-    public Object get(Object object) {
+    public Medicine get(Medicine object) {
         return null;
     }
 
     @Override
-    public List<Object> getAll(Object object) {
+    public List<Medicine> getAll(Medicine object) {
         return null;
     }
 
     @Override
-    public Boolean add(Object object) {
+    public Boolean add(Medicine obj) {
         return null;
     }
 
     @Override
-    public Boolean update(Object object) {
+    public Boolean update(Medicine object) {
         return null;
     }
 
     @Override
-    public Boolean delete(Object object) {
+    public Boolean delete(Medicine object) {
         return null;
     }
 }

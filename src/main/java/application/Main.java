@@ -1,12 +1,9 @@
 package application;
 
-import application.Config.DBUtility;
-
-import java.sql.Connection;
+import application.DAO.AgentDAO;
+import application.DTO.Agent;
 
 public class Main {
     public static void main(String[] args) {
-        Connection con = DBUtility.getInstance();
-        System.out.println(con);
     }
 }

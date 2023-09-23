@@ -1,32 +1,33 @@
 package application.DAO;
 
+import application.DTO.Category;
 import application.Interfaces.CRUD;
 
 import java.util.List;
 
-public class CategoryDAO implements CRUD {
+public class CategoryDAO implements CRUD<Category> {
     @Override
-    public Object get(Object object) {
+    public Category get(Category object) {
         return null;
     }
 
     @Override
-    public List<Object> getAll(Object object) {
+    public List<Category> getAll(Category object) {
         return null;
     }
 
     @Override
-    public Boolean add(Object object) {
+    public Boolean add(Category obj) {
         return null;
     }
 
     @Override
-    public Boolean update(Object object) {
+    public Boolean update(Category object) {
         return null;
     }
 
     @Override
-    public Boolean delete(Object object) {
+    public Boolean delete(Category object) {
         return null;
     }
 }
