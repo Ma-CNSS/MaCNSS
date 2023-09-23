@@ -1,32 +1,34 @@
 package application.DAO;
 
+import application.DTO.Case;
 import application.Interfaces.CRUD;
 
 import java.util.List;
 
-public class CaseDAO implements CRUD {
+public class CaseDAO implements CRUD<Case> {
+
     @Override
-    public Object get(Object object) {
+    public Case get(Case object) {
         return null;
     }
 
     @Override
-    public List<Object> getAll(Object object) {
+    public List<Case> getAll(Case object) {
         return null;
     }
 
     @Override
-    public Boolean add(Object object) {
+    public Boolean add(Case obj) {
         return null;
     }
 
     @Override
-    public Boolean update(Object object) {
+    public Boolean update(Case object) {
         return null;
     }
 
     @Override
-    public Boolean delete(Object object) {
+    public Boolean delete(Case object) {
         return null;
     }
 }

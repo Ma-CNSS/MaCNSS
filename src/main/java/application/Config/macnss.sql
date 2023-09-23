@@ -2,34 +2,24 @@ DROP DATABASE IF EXISTS macnss;
 
 CREATE DATABASE macnss;
 
-\c mydatabase;
+\c macnss;
 
 CREATE TYPE Status AS ENUM ('in-progress', 'approved', 'declined');
 CREATE TYPE Type AS ENUM ('medical', 'optic', 'estetic');
 
-CREATE TABLE roles (
-                       id serial primary key,
-                       name varchar(50) not null
+CREATE TABLE admins (
+                        id serial primary key,
+                        first_name varchar(50) not null,
+                        last_name varchar(50) not null,
+                        email varchar(50) unique not null,
+                        password varchar(50) not null
 );
-
-CREATE TABLE users (
-                       id serial primary key,
-                       first_name varchar(50) not null,
-                       last_name varchar(50) not null,
-                       email varchar(50) unique not null,
-                       password varchar(50) not null,
-                       role int references roles(id)
-);
-
-
-CREATE TABLE permissions (
-                             id serial primary key,
-                             name varchar(50) not null
-);
-
-CREATE TABLE role_permissions (
-                                  role int references roles(id),
-                                  permission int references permissions(id)
+CREATE TABLE agents (
+                        id serial primary key,
+                        first_name varchar(50) not null,
+                        last_name varchar(50) not null,
+                        email varchar(50) unique not null,
+                        password varchar(50) not null
 );
 
 CREATE TABLE doctypes (
