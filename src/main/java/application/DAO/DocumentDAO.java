@@ -13,7 +13,7 @@ public class DocumentDAO implements CRUD<Document> {
     }
 
     @Override
-    public List<Document> getAll(Document object) {
+    public List<Document> getAll() {
         return null;
     }
 

@@ -13,7 +13,7 @@ public class DocTypeDAO implements CRUD<DocType> {
     }
 
     @Override
-    public List<DocType> getAll(DocType object) {
+    public List<DocType> getAll() {
         return null;
     }
 

@@ -1,8 +1,13 @@
 package application.DAO;
 
 import application.Config.DBUtility;
+import application.Config.Datasource;
 import application.DTO.Agent;
 import application.Interfaces.CRUD;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -27,7 +32,14 @@ public class AgentDAO extends UserDAO implements CRUD<Agent> {
     }
 
     @Override
-    public List<Agent> getAll(Agent agent) {
+    public List<Agent> getAll() {
+        try {
+            QueryRunner run = new QueryRunner(Datasource.getPostgreSQLDataSource());
+            ResultSetHandler<List<Agent>> q = new BeanListHandler<>(Agent.class);
+            return run.query("SELECT * FROM agents", q);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         return null;
     }
 
@@ -35,7 +47,7 @@ public class AgentDAO extends UserDAO implements CRUD<Agent> {
     public Boolean add(Agent agent){
         int result = 0;
         try {
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO agents (first_name, last_name, email, password) VALUES (?,?,?,?)");
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO agents (firstName, lastName, email, password) VALUES (?,?,?,?)");
             stmt.setString(1, agent.getFirstName());
             stmt.setString(2, agent.getLastName());
             stmt.setString(3, agent.getEmail());

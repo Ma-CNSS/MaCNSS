@@ -3,40 +3,40 @@ package application.DTO;
 import java.net.URL;
 
 public class Document {
-    private int code;
-    private double price;
-    private URL url;
-    private DocType docType;
+    private int Code;
+    private double Price;
+    private URL URL;
+    private DocType DocType;
 
     public int getCode() {
-        return code;
+        return Code;
     }
 
     public void setCode(int code) {
-        this.code = code;
+        this.Code = code;
     }
 
     public double getPrice() {
-        return price;
+        return Price;
     }
 
     public void setPrice(double price) {
-        this.price = price;
+        this.Price = price;
     }
 
     public URL getUrl() {
-        return url;
+        return URL;
     }
 
     public void setUrl(URL url) {
-        this.url = url;
+        this.URL = url;
     }
 
     public DocType getDocType() {
-        return docType;
+        return DocType;
     }
 
     public void setDocType(DocType docType) {
-        this.docType = docType;
+        this.DocType = docType;
     }
 }
