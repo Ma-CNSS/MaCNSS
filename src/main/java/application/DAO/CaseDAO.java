@@ -13,7 +13,7 @@ public class CaseDAO implements CRUD<Case> {
     }
 
     @Override
-    public List<Case> getAll(Case object) {
+    public List<Case> getAll() {
         return null;
     }
 

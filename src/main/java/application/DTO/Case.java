@@ -6,10 +6,10 @@ import java.util.List;
 
 public class Case {
     private int Id;
-    private double price;
-    private Type type;
-    private Status status;
-    private Patient patient;
+    private double Price;
+    private Type Type;
+    private Status Status;
+    private Patient Patient;
     private List<Document> documents;
     private List<Medicine> medicines;
 
@@ -22,35 +22,35 @@ public class Case {
     }
 
     public double getPrice() {
-        return price;
+        return Price;
     }
 
     public void setPrice(double price) {
-        this.price = price;
+        this.Price = price;
     }
 
     public Type getType() {
-        return type;
+        return Type;
     }
 
     public void setType(Type type) {
-        this.type = type;
+        this.Type = type;
     }
 
     public Status getStatus() {
-        return status;
+        return Status;
     }
 
     public void setStatus(Status status) {
-        this.status = status;
+        this.Status = status;
     }
 
     public Patient getPatient() {
-        return patient;
+        return Patient;
     }
 
     public void setPatient(Patient patient) {
-        this.patient = patient;
+        this.Patient = patient;
     }
 
     public List<Document> getDocuments() {

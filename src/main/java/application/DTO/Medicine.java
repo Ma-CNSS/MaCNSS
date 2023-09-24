@@ -11,7 +11,7 @@ public class Medicine {
     private double PH;
     private double Price;
     private char PG;
-    private Category category;
+    private Category Category;
 
     public int getCode() {
         return Code;
@@ -94,10 +94,10 @@ public class Medicine {
     }
 
     public Category getCategory() {
-        return category;
+        return Category;
     }
 
     public void setCategory(Category category) {
-        this.category = category;
+        this.Category = category;
     }
 }

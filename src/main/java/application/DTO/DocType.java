@@ -3,7 +3,7 @@ package application.DTO;
 public class DocType {
     private int Id;
     private String Name;
-    private double refundRate;
+    private double RefundRate;
 
     public int getId() {
         return Id;
@@ -22,10 +22,10 @@ public class DocType {
     }
 
     public double getRefundRate() {
-        return refundRate;
+        return RefundRate;
     }
 
     public void setRefundRate(double refundRate) {
-        this.refundRate = refundRate;
+        this.RefundRate = refundRate;
     }
 }

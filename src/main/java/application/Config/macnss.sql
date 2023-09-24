@@ -8,62 +8,62 @@ CREATE TYPE Status AS ENUM ('in-progress', 'approved', 'declined');
 CREATE TYPE Type AS ENUM ('medical', 'optic', 'estetic');
 
 CREATE TABLE admins (
-                        id serial primary key,
-                        first_name varchar(50) not null,
-                        last_name varchar(50) not null,
-                        email varchar(50) unique not null,
-                        password varchar(50) not null
+                        Id serial primary key,
+                        FirstName varchar(50) not null,
+                        LastName varchar(50) not null,
+                        Email varchar(50) unique not null,
+                        Password varchar(50) not null
 );
 CREATE TABLE agents (
-                        id serial primary key,
-                        first_name varchar(50) not null,
-                        last_name varchar(50) not null,
-                        email varchar(50) unique not null,
-                        password varchar(50) not null
+                        Id serial primary key,
+                        FirstName varchar(50) not null,
+                        LastName varchar(50) not null,
+                        Email varchar(50) unique not null,
+                        Password varchar(50) not null
 );
 
 CREATE TABLE doctypes (
-                          id serial primary key,
-                          name varchar(50) not null,
-                          refundRate int not null
+                          Id serial primary key,
+                          Name varchar(50) not null,
+                          RefundRate int not null
 );
 
 CREATE TABLE documents (
-                           id serial primary key,
-                           price float not null,
-                           doctype int references doctypes(id)
+                           Id serial primary key,
+                           Price float not null,
+                           DocType int references doctypes(id)
 );
 
 CREATE TABLE categories (
-                            id serial primary key,
-                            name varchar(50) not null
+                            Id serial primary key,
+                            Name varchar(50) not null
 );
 
 CREATE TABLE medicins (
-                          id serial primary key,
-                          name varchar(50) not null,
-                          doz varchar(50) not null,
-                          dozunit varchar(50) not null,
-                          form text not null,
-                          presentation text not null,
-                          ppv float not null,
-                          ph float not null,
-                          price float not null,
-                          pg char not null,
-                          category int references categories(id)
+                          Id serial primary key,
+                          Name varchar(50) not null,
+                          Doz varchar(50) not null,
+                          DozUnit varchar(50) not null,
+                          Form text not null,
+                          Presentation text not null,
+                          PPV float not null,
+                          PH float not null,
+                          Price float not null,
+                          PG char not null,
+                          Category int references categories(id)
 );
 
 CREATE TABLE patients (
-                          id serial primary key,
-                          cin varchar(20) not null,
-                          name varchar(50) not null,
-                          email varchar(50) unique not null
+                          Id serial primary key,
+                          CIN varchar(20) not null,
+                          Name varchar(50) not null,
+                          Email varchar(50) unique not null
 );
 
 CREATE TABLE cases (
-                       id serial primary key,
-                       price float not null,
-                       type Type not null,
-                       status Status not null,
-                       patient int references patients(id)
+                       Id serial primary key,
+                       Price float not null,
+                       Type Type not null,
+                       Status Status not null,
+                       Patient int references patients(id)
 );

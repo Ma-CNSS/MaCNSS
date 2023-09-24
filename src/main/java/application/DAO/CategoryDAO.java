@@ -12,7 +12,7 @@ public class CategoryDAO implements CRUD<Category> {
     }
 
     @Override
-    public List<Category> getAll(Category object) {
+    public List<Category> getAll() {
         return null;
     }
 

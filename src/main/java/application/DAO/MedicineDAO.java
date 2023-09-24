@@ -13,7 +13,7 @@ public class MedicineDAO implements CRUD<Medicine> {
     }
 
     @Override
-    public List<Medicine> getAll(Medicine object) {
+    public List<Medicine> getAll() {
         return null;
     }
 
