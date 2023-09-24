@@ -6,6 +6,7 @@ import application.DTO.Agent;
 import application.Interfaces.CRUD;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import java.sql.Connection;
@@ -28,6 +29,13 @@ public class AgentDAO extends UserDAO implements CRUD<Agent> {
 
     @Override
     public Agent get(Agent agent) {
+        try {
+            QueryRunner run = new QueryRunner(Datasource.getPostgreSQLDataSource());
+            ResultSetHandler<Agent> q = new BeanHandler(Agent.class);
+            return (Agent) run.query("SELECT * FROM agents WHERE id = ?", q, agent.getId());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         return null;
     }
 
