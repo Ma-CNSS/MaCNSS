@@ -74,6 +74,14 @@ public class AgentDAO extends UserDAO implements CRUD<Agent> {
 
     @Override
     public Boolean delete(Agent agent) {
+        try {
+                QueryRunner runner = new QueryRunner();
+                String deleteSQL = "DELETE FROM agents WHERE id = ?";
+                int numRowsDeleted = runner.update(connection, deleteSQL, agent.getId());
+                return numRowsDeleted > 0;
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
         return null;
     }
 }
