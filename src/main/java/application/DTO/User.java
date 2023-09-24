@@ -1,11 +1,14 @@
 package application.DTO;
 
+import java.util.Date;
+
 public abstract class User {
     private int Id;
     private String FirstName;
     private String LastName;
     private String Email;
     private String Password;
+    private Date CreatedAt;
 
     public int getId() {
         return Id;
@@ -45,5 +48,13 @@ public abstract class User {
 
     public void setPassword(String password) {
         this.Password = password;
+    }
+
+    public Date getCreatedAt() {
+        return CreatedAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        CreatedAt = createdAt;
     }
 }

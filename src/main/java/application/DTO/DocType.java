@@ -1,9 +1,12 @@
 package application.DTO;
 
+import java.util.Date;
+
 public class DocType {
     private int Id;
     private String Name;
     private double RefundRate;
+    private Date CreatedAt;
 
     public int getId() {
         return Id;
@@ -27,5 +30,13 @@ public class DocType {
 
     public void setRefundRate(double refundRate) {
         this.RefundRate = refundRate;
+    }
+
+    public Date getCreatedAt() {
+        return CreatedAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        CreatedAt = createdAt;
     }
 }
