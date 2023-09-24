@@ -69,7 +69,16 @@ public class AgentDAO extends UserDAO implements CRUD<Agent> {
 
     @Override
     public Boolean update(Agent agent) {
-        return null;
+        try {
+                QueryRunner runner = new QueryRunner();
+                String updateSQL
+                        = "UPDATE agents SET firstname = ?, lastname = ?, email = ?, password = ? WHERE id = ?";
+                int numRowsUpdated = runner.update(connection, updateSQL, agent.getFirstName(), agent.getLastName(), agent.getEmail(), agent.getPassword(), agent.getId());
+                return numRowsUpdated > 3;
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 
     @Override
