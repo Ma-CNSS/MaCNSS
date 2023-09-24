@@ -4,8 +4,8 @@ CREATE DATABASE macnss;
 
 \c macnss;
 
-CREATE TYPE Status AS ENUM ('in-progress', 'approved', 'declined');
-CREATE TYPE Type AS ENUM ('medical', 'optic', 'estetic');
+CREATE TYPE Status AS ENUM ('INPROGRESS', 'APPROVED', 'DECLINED');
+CREATE TYPE Type AS ENUM ('mMEDICAL', 'OPTIC', 'AESTHETIC');
 
 CREATE TABLE admins (
                         Id serial primary key,
