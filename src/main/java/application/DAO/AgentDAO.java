@@ -32,7 +32,7 @@ public class AgentDAO extends UserDAO implements CRUD<Agent> {
         try {
             QueryRunner run = new QueryRunner(Datasource.getPostgreSQLDataSource());
             ResultSetHandler<Agent> q = new BeanHandler(Agent.class);
-            return (Agent) run.query("SELECT * FROM agents WHERE id = ?", q, agent.getId());
+            return (Agent) run.query("SELECT * FROM agents WHERE id = ? OR email = ?", q, agent.getId(), agent.getEmail());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
