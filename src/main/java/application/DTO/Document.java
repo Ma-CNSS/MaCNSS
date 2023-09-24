@@ -1,12 +1,14 @@
 package application.DTO;
 
 import java.net.URL;
+import java.util.Date;
 
 public class Document {
     private int Code;
     private double Price;
     private URL URL;
     private DocType DocType;
+    private Date CreatedAt;
 
     public int getCode() {
         return Code;
@@ -24,12 +26,12 @@ public class Document {
         this.Price = price;
     }
 
-    public URL getUrl() {
+    public java.net.URL getURL() {
         return URL;
     }
 
-    public void setUrl(URL url) {
-        this.URL = url;
+    public void setURL(java.net.URL URL) {
+        this.URL = URL;
     }
 
     public DocType getDocType() {
@@ -38,5 +40,13 @@ public class Document {
 
     public void setDocType(DocType docType) {
         this.DocType = docType;
+    }
+
+    public Date getCreatedAt() {
+        return CreatedAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        CreatedAt = createdAt;
     }
 }

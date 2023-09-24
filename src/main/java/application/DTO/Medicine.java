@@ -1,5 +1,7 @@
 package application.DTO;
 
+import java.util.Date;
+
 public class Medicine {
     private int Code;
     private String Name;
@@ -12,6 +14,7 @@ public class Medicine {
     private double Price;
     private char PG;
     private Category Category;
+    private Date CreatedAt;
 
     public int getCode() {
         return Code;
@@ -99,5 +102,13 @@ public class Medicine {
 
     public void setCategory(Category category) {
         this.Category = category;
+    }
+
+    public Date getCreatedAt() {
+        return CreatedAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        CreatedAt = createdAt;
     }
 }

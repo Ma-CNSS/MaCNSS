@@ -2,6 +2,7 @@ package application.DTO;
 
 import application.ENUMS.*;
 
+import java.util.Date;
 import java.util.List;
 
 public class Case {
@@ -12,6 +13,7 @@ public class Case {
     private Patient Patient;
     private List<Document> documents;
     private List<Medicine> medicines;
+    private Date SubmissionDate;
 
     public int getId() {
         return Id;
@@ -67,5 +69,13 @@ public class Case {
 
     public void setMedicines(List<Medicine> medicines) {
         this.medicines = medicines;
+    }
+
+    public Date getSubmissionDate() {
+        return SubmissionDate;
+    }
+
+    public void setSubmissionDate(Date submissionDate) {
+        SubmissionDate = submissionDate;
     }
 }

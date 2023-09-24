@@ -12,31 +12,36 @@ CREATE TABLE admins (
                         FirstName varchar(50) not null,
                         LastName varchar(50) not null,
                         Email varchar(50) unique not null,
-                        Password varchar(50) not null
+                        Password varchar(50) not null,
+                        CreatedAt timestamp default current_timestamp not null
 );
 CREATE TABLE agents (
                         Id serial primary key,
                         FirstName varchar(50) not null,
                         LastName varchar(50) not null,
                         Email varchar(50) unique not null,
-                        Password varchar(50) not null
+                        Password varchar(50) not null,
+                        CreatedAt timestamp default current_timestamp not null
 );
 
 CREATE TABLE doctypes (
                           Id serial primary key,
                           Name varchar(50) not null,
-                          RefundRate int not null
+                          RefundRate int not null,
+                          CreatedAt timestamp default current_timestamp not null
 );
 
 CREATE TABLE documents (
                            Id serial primary key,
                            Price float not null,
-                           DocType int references doctypes(id)
+                           DocType int references doctypes(id),
+                           CreatedAt timestamp default current_timestamp not null
 );
 
 CREATE TABLE categories (
                             Id serial primary key,
-                            Name varchar(50) not null
+                            Name varchar(50) not null,
+                            CreatedAt timestamp default current_timestamp not null
 );
 
 CREATE TABLE medicins (
@@ -50,14 +55,16 @@ CREATE TABLE medicins (
                           PH float not null,
                           Price float not null,
                           PG char not null,
-                          Category int references categories(id)
+                          Category int references categories(id),
+                          CreatedAt timestamp default current_timestamp not null
 );
 
 CREATE TABLE patients (
                           Id serial primary key,
                           CIN varchar(20) not null,
                           Name varchar(50) not null,
-                          Email varchar(50) unique not null
+                          Email varchar(50) unique not null,
+                          CreatedAt timestamp default current_timestamp not null
 );
 
 CREATE TABLE cases (
@@ -65,5 +72,6 @@ CREATE TABLE cases (
                        Price float not null,
                        Type Type not null,
                        Status Status not null,
-                       Patient int references patients(id)
+                       Patient int references patients(id),
+                       SubmissionDate timestamp default current_timestamp not null
 );
