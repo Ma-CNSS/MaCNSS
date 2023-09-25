@@ -32,7 +32,7 @@ CREATE TABLE doctypes (
 );
 
 CREATE TABLE documents (
-                           Id serial primary key,
+                           Code serial primary key,
                            Price float not null,
                            DocType int references doctypes(id),
                            CreatedAt timestamp default current_timestamp not null
@@ -45,7 +45,7 @@ CREATE TABLE categories (
 );
 
 CREATE TABLE medicins (
-                          Id serial primary key,
+                          Code serial primary key,
                           Name varchar(50) not null,
                           Doz varchar(50) not null,
                           DozUnit varchar(50) not null,
@@ -60,8 +60,7 @@ CREATE TABLE medicins (
 );
 
 CREATE TABLE patients (
-                          Id serial primary key,
-                          CIN varchar(20) not null,
+                          CIN varchar(20) Primary key not null,
                           Name varchar(50) not null,
                           Email varchar(50) unique not null,
                           CreatedAt timestamp default current_timestamp not null
@@ -72,6 +71,6 @@ CREATE TABLE cases (
                        Price float not null,
                        Type Type not null,
                        Status Status not null,
-                       Patient int references patients(id),
+                       Patient int references patients(cin),
                        SubmissionDate timestamp default current_timestamp not null
 );

@@ -120,18 +120,15 @@ public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
 
     @Override
     public Boolean add(Agent agent) {
-        int result = 0;
         try {
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO agents (firstName, lastName, email, password) VALUES (?,?,?,?)");
-            stmt.setString(1, agent.getFirstName());
-            stmt.setString(2, agent.getLastName());
-            stmt.setString(3, agent.getEmail());
-            stmt.setString(4, agent.getPassword());
-            result = stmt.executeUpdate();
+            QueryRunner runner = new QueryRunner();
+            String insertSQL = "INSERT INTO agents (firstName, lastName, email, password) VALUES (?,?,?,?)";
+            int numRowsInserted = runner.update(connection, insertSQL, agent.getFirstName(), agent.getLastName(), agent.getEmail(), agent.getPassword());
+            return numRowsInserted > 0;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return result > 0;
+        return false;
     }
 
     @Override
