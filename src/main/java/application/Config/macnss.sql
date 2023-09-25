@@ -12,7 +12,7 @@ CREATE TABLE admins (
                         FirstName varchar(50) not null,
                         LastName varchar(50) not null,
                         Email varchar(50) unique not null,
-                        Password varchar(50) not null,
+                        Password text not null,
                         CreatedAt timestamp default current_timestamp not null
 );
 CREATE TABLE agents (
@@ -20,7 +20,7 @@ CREATE TABLE agents (
                         FirstName varchar(50) not null,
                         LastName varchar(50) not null,
                         Email varchar(50) unique not null,
-                        Password varchar(50) not null,
+                        Password text not null,
                         CreatedAt timestamp default current_timestamp not null
 );
 
