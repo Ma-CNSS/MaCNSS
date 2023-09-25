@@ -1,6 +1,7 @@
 package application.DTO;
 
 import java.util.Date;
+import java.util.List;
 
 public class Patient {
     private int CIN;
