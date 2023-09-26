@@ -23,7 +23,7 @@ public class DocumentDAO implements CRUD<Document> {
         try {
             QueryRunner run = new QueryRunner(Datasource.getPostgreSQLDataSource());
             ResultSetHandler<Document> q = new BeanHandler(Document.class);
-            return (Document) run.query("SELECT * FROM documents WHERE id = ? OR doctype = ?", q, document.getCode(), document.getDocType().getName());
+            return (Document) run.query("SELECT * FROM documents WHERE code = ? OR doctype = ?", q, document.getCode(), document.getDocType().getName());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -36,6 +36,16 @@ public class DocumentDAO implements CRUD<Document> {
             QueryRunner run = new QueryRunner(Datasource.getPostgreSQLDataSource());
             ResultSetHandler<List<Document>> q = new BeanListHandler<>(Document.class);
             return run.query("SELECT * FROM documents", q);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    public List<Document> getAllByCase(Case casee) {
+        try {
+            QueryRunner run = new QueryRunner(Datasource.getPostgreSQLDataSource());
+            ResultSetHandler<List<Document>> q = new BeanListHandler<>(Document.class);
+            return run.query("SELECT * FROM documents WHERE case ", q);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

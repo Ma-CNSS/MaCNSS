@@ -17,18 +17,17 @@ public class AdminDAO extends UserDAO<Admin>{
     @Override
     public Boolean login(Admin admin) {
         try {
-            String salt = getSalt();
             QueryRunner run = new QueryRunner(Datasource.getPostgreSQLDataSource());
             ResultSetHandler<Admin> q = new BeanHandler(Admin.class);
             String sql = "SELECT * FROM admins WHERE email = ?";
             Admin a = run.query(sql, q, admin.getEmail());
             if (Objects.nonNull(a)){
-                admin.setPassword(get_SHA_512_SecurePassword(admin.getPassword(), salt));
-                return Objects.equals(a.getPassword(), admin.getPassword());
+                admin.setPassword(hashPassword(admin.getPassword()));
+                return checkPassword(a.getPassword(), admin.getPassword());
             }else {
                 return false;
             }
-        } catch (SQLException | NoSuchAlgorithmException | RuntimeException e) {
+        } catch (SQLException | RuntimeException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }

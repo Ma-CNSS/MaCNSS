@@ -2,9 +2,7 @@ package application.DAO;
 
 import application.Config.DBUtility;
 import application.Config.Datasource;
-import application.DTO.Agent;
-import application.DTO.Case;
-import application.DTO.Category;
+import application.DTO.*;
 import application.Interfaces.CRUD;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
@@ -92,5 +90,18 @@ public class CaseDAO implements CRUD<Case> {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+    public Case processCase(Case casee){
+        double sumDocuments = 0;
+        double sumMedicines = 0;
+//        casee.getDocuments()
+        for(Document document: casee.getDocuments()){
+            sumDocuments += document.getPrice();
+        }
+        for(Medicine medicine: casee.getMedicines()){
+            sumMedicines += medicine.getPrice();
+        }
+        casee.setPrice(sumDocuments + sumMedicines);
+        return casee;
     }
 }
