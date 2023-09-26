@@ -79,8 +79,6 @@ public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
                     String subject = "Verification mail";
                     return AgentDAO.sendMail(emailMessage + otp, subject, agent.getEmail());
                 }
-            } else {
-                return false;
             }
         } catch (SQLException | NoSuchAlgorithmException | RuntimeException e) {
             System.out.println(e.getMessage());
