@@ -10,7 +10,6 @@ import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -22,8 +21,8 @@ public class CaseDAO implements CRUD<Case> {
     public Case get(Case casee) {
         try {
             QueryRunner run = new QueryRunner(Datasource.getPostgreSQLDataSource());
-            ResultSetHandler<Case> q = new BeanHandler(Case.class);
-            return (Case) run.query("SELECT * FROM cases WHERE id = ? OR patient = ?", q, casee.getId(), casee.getPatient().getCIN());
+            ResultSetHandler<Case> q = new BeanHandler<>(Case.class);
+            return run.query("SELECT * FROM cases WHERE id = ? OR patient = ?", q, casee.getId(), casee.getPatient().getCIN());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

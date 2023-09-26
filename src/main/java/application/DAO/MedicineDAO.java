@@ -2,8 +2,6 @@ package application.DAO;
 
 import application.Config.DBUtility;
 import application.Config.Datasource;
-import application.DTO.Case;
-import application.DTO.Category;
 import application.DTO.Medicine;
 import application.Interfaces.CRUD;
 import org.apache.commons.dbutils.QueryRunner;
@@ -22,8 +20,8 @@ public class MedicineDAO implements CRUD<Medicine> {
     public Medicine get(Medicine medicine) {
         try {
             QueryRunner run = new QueryRunner(Datasource.getPostgreSQLDataSource());
-            ResultSetHandler<Medicine> q = new BeanHandler(Medicine.class);
-            return (Medicine) run.query("SELECT * FROM medicins  WHERE id = ? OR name = ?", q, medicine.getCode(), medicine.getName());
+            ResultSetHandler<Medicine> q = new BeanHandler<>(Medicine.class);
+            return run.query("SELECT * FROM medicins  WHERE code = ? OR name = ?", q, medicine.getCode(), medicine.getName());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -60,8 +58,8 @@ public class MedicineDAO implements CRUD<Medicine> {
         int numRowsUpdated = 0;
         try {
             QueryRunner runner = new QueryRunner();
-            String updateSQL = "UPDATE medicins SET name = ?, doz = ?, dozunit = ?, form = ?, presentation = ?, ppv = ?, ph = ?, price = ?, pg = ?, category = ? WHERE id = ?";
-            numRowsUpdated = runner.update(connection, updateSQL, medicine.getName(), medicine.getDoz(), medicine.getDozUnit(), medicine.getForm(), medicine.getPresentation(), medicine.getPPV(), medicine.getPH(), medicine.getPrice(), medicine.getPG(), medicine.getCategory());
+            String updateSQL = "UPDATE medicins SET name = ?, doz = ?, dozunit = ?, form = ?, presentation = ?, ppv = ?, ph = ?, price = ?, pg = ?, category = ? WHERE code = ?";
+            numRowsUpdated = runner.update(connection, updateSQL, medicine.getName(), medicine.getDoz(), medicine.getDozUnit(), medicine.getForm(), medicine.getPresentation(), medicine.getPPV(), medicine.getPH(), medicine.getPrice(), medicine.getPG(), medicine.getCategory(), medicine.getCode());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
