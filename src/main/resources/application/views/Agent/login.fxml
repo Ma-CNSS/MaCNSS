@@ -37,9 +37,14 @@
                 <Font size="18.0" />
             </font>
         </Button>
+        <Button fx:id="agentDash" layoutX="207.0" layoutY="489.0" mnemonicParsing="false" onAction="#agentDashBoard" prefWidth="286.0" text="Dash">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
         <ImageView fitHeight="248.0" fitWidth="200.0" layoutX="617.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
              <image>
-                <Image url="@../images/cnss-logo-1.png" />
+                <Image url="@../../images/cnss-logo-1.png" />
              </image>
         </ImageView>
         <Label fx:id="loginWarning" alignment="TOP_LEFT" layoutX="207.0" layoutY="126.0" textFill="RED">

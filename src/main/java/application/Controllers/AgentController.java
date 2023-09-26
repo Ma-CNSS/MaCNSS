@@ -4,13 +4,22 @@ import application.DAO.AgentDAO;
 import application.DTO.Agent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.util.Optional;
 
 public class AgentController {
+
+    private Stage stage;
+    private Parent root;
+    private Scene scene;
+
     @FXML
     private TextField agentEmail;
     @FXML
@@ -18,21 +27,46 @@ public class AgentController {
     @FXML
     private Button agentLoginBtn;
     @FXML
+    private Button agentDash;
+    @FXML
     private Label loginWarning;
     private Agent agent;
     public AgentController() {
     }
 
     @FXML
-    protected void submit(ActionEvent event) {
+    protected void submit(ActionEvent event) throws Exception {
         agent = new Agent(agentEmail.getText(), agentPassword.getText());
         AgentDAO agentDAO = new AgentDAO();
         if(agentDAO.login(agent)) {
-            System.out.println("logged in");
+            TextInputDialog codeConfirmation = new TextInputDialog();
+            codeConfirmation.setTitle("Verification Code");
+            codeConfirmation.setHeaderText("Enter Code you received via Email");
+            Optional<String> result = codeConfirmation.showAndWait();
+            if (result.isPresent() && !result.get().isEmpty()) {
+                System.out.println(result.get());
+                System.out.println("logged in");
+                agentDashBoard(event);
+            }else {
+                logingAlert("Please Enter a Verification Code");
+            }
         } else {
-            loginWarning.setText("Wrong Credentials");
-            loginWarning.setPrefWidth(286.0);
-            loginWarning.setPadding(new Insets(3, 5, 3, 5));
+            logingAlert("Wrong Credentials");
         };
+    }
+
+    @FXML
+    protected void agentDashBoard(ActionEvent event) throws Exception {
+        root = FXMLLoader.load(getClass().getResource("/application/views/Agent/dashboard.fxml"));
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void logingAlert(String message) {
+        loginWarning.setText(message);
+        loginWarning.setPrefWidth(286.0);
+        loginWarning.setPadding(new Insets(5, 10, 5, 10));
     }
 }

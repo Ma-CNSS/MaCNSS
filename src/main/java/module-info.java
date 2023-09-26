@@ -7,6 +7,9 @@ module application {
     requires javafx.graphics;
     requires javafx.controls;
     requires javafx.fxml;
+    requires jbcrypt;
+
+
     opens application to javafx.fxml;
     exports application;
 
