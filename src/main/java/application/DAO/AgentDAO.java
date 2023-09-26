@@ -9,14 +9,11 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
-import org.mindrot.jbcrypt.BCrypt;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -24,6 +21,8 @@ public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
 
     public static String username;
     public static String password;
+    public String emailMessage = "Hello dear agent, here is your one time password: \nThis password expires in 10 minutes: ";
+    public String subject = "Verification mail";
 
     static {
         ResourceBundle rd = ResourceBundle.getBundle("mailing");
@@ -32,7 +31,7 @@ public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
     }
 
     private final Connection connection = DBUtility.getInstance();
-    private Map<String, Object> session = SessionManager.getInstance();
+//    private Map<String, Object> session = SessionManager.getInstance();
 
     public static Boolean sendMail(String body, String subject, String email) {
 
@@ -66,23 +65,25 @@ public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
     public Boolean login(Agent agent) {
         try {
             QueryRunner run = new QueryRunner(Datasource.getPostgreSQLDataSource());
-            ResultSetHandler<Agent> q = new BeanHandler(Agent.class);
+            ResultSetHandler<Agent> q = new BeanHandler<>(Agent.class);
             String sql = "SELECT * FROM agents WHERE email = ?";
             Agent a = run.query(sql, q, agent.getEmail());
-            if (Objects.nonNull(a)) {
-                if (checkPassword(agent.getPassword(), a.getPassword())) {
-                    Integer otp = generateRandomCode(6);
-                    SessionManager.setAttribute("verificationCode", otp, 600000);
-                    String emailMessage = "Hello dear agent, here is your one time password: \nThis password expires in 10 minutes: ";
-                    String subject = "Verification mail";
-                    return AgentDAO.sendMail(emailMessage + otp, subject, agent.getEmail());
-                }
+            if (Objects.nonNull(a) && checkPassword(agent.getPassword(), a.getPassword())) {
+                int otp = generateRandomCode(6);
+                SessionManager.setAttribute(agent.getEmail(), otp, 600000);
+                return AgentDAO.sendMail(emailMessage + otp, subject, agent.getEmail());
             }
+            return false;
         } catch (SQLException | RuntimeException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
-        return false;
+    }
+
+    public Agent verifyLogin(Agent agent, int opt){
+        if(SessionManager.getValue(agent.getEmail(), opt))
+            return agent;
+        return null;
     }
 
     @Override
@@ -91,11 +92,18 @@ public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
     }
 
     @Override
+    public Agent verifyLogin(Agent agent, Integer otp) {
+        if(SessionManager.getValue(agent.getEmail(), otp))
+            return agent;
+        return null;
+    }
+
+    @Override
     public Agent get(Agent agent) {
         try {
             QueryRunner run = new QueryRunner(Datasource.getPostgreSQLDataSource());
-            ResultSetHandler<Agent> q = new BeanHandler(Agent.class);
-            return (Agent) run.query("SELECT * FROM agents WHERE id = ? OR email = ?", q, agent.getId(), agent.getEmail());
+            ResultSetHandler<Agent> q = new BeanHandler<>(Agent.class);
+            return run.query("SELECT * FROM agents WHERE id = ? OR email = ?", q, agent.getId(), agent.getEmail());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

@@ -1,8 +1,12 @@
 package application.DAO;
 
 import java.security.SecureRandom;
+
+import application.Config.SessionManager;
+import application.DTO.Agent;
 import org.mindrot.jbcrypt.BCrypt;
 import java.security.SecureRandom;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,6 +14,7 @@ public abstract class UserDAO<T> {
     private static final SecureRandom random = new SecureRandom();
     public abstract Boolean login(T object);
     public abstract Boolean logout(T object);
+    public abstract T verifyLogin(T user,Integer otp);
 
 
         public static int generateRandomCode(int numDigits) {
