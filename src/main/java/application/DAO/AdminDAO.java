@@ -37,6 +37,12 @@ public class AdminDAO extends UserDAO<Admin>{
     public Boolean logout(Admin admin) {
         return null;
     }
+
+    @Override
+    public Boolean verifyLogin(Admin user, Integer otp) {
+        return null;
+    }
+
     public Boolean update(Admin admin){
         return true;
     }
