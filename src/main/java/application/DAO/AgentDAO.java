@@ -9,6 +9,7 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -64,23 +65,20 @@ public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
     @Override
     public Boolean login(Agent agent) {
         try {
-            String salt = getSalt();
             QueryRunner run = new QueryRunner(Datasource.getPostgreSQLDataSource());
             ResultSetHandler<Agent> q = new BeanHandler(Agent.class);
             String sql = "SELECT * FROM agents WHERE email = ?";
             Agent a = run.query(sql, q, agent.getEmail());
             if (Objects.nonNull(a)) {
-                agent.setPassword(get_SHA_512_SecurePassword(agent.getPassword(), salt));
-                System.out.println(agent.getPassword());
-                if (Objects.equals(agent.getPassword(), a.getPassword())) {
-                    Integer otp = generateOTP();
+                if (checkPassword(agent.getPassword(), a.getPassword())) {
+                    Integer otp = generateRandomCode(6);
                     SessionManager.setAttribute("verificationCode", otp, 600000);
                     String emailMessage = "Hello dear agent, here is your one time password: \nThis password expires in 10 minutes: ";
                     String subject = "Verification mail";
                     return AgentDAO.sendMail(emailMessage + otp, subject, agent.getEmail());
                 }
             }
-        } catch (SQLException | NoSuchAlgorithmException | RuntimeException e) {
+        } catch (SQLException | RuntimeException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
@@ -155,12 +153,5 @@ public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
             System.out.println(e.getMessage());
         }
         return null;
-    }
-
-    public Integer generateOTP() {
-        int min = 100000;
-        int max = 999999;
-        Random code = new Random();
-        return code.nextInt(max - min) + min;
     }
 }
