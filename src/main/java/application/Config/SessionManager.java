@@ -1,22 +1,40 @@
 package application.Config;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class SessionManager {
-    private static Map<String, Object> sessionData = new HashMap<>();
+    private static Map<String, SessionData> sessionData = new HashMap<>();
 
-    public static Map<String, Object> getInstance() {
-        return sessionData;
+    public SessionManager() {
     }
 
-    public static void setAttribute(String key, Object value, long durationMillis) {
+//    public static Map<String, Object> getInstance() {
+//            return sessionData;
+//    }
+
+    public static void setAttribute(String key, Integer value, long durationMillis) {
         sessionData.put(key, new SessionData(value, durationMillis));
     }
 
-    public static Object getAttribute(String key) {
-        return sessionData.get(key);
+    //    public static Object getAttribute(String key) {
+//        return sessionData.get(key);
+//    }
+    public static Boolean getValue(String key, int otp) {
+        for (Map.Entry<String, SessionData> s : sessionData.entrySet()) {
+            if (Objects.equals(s.getKey(), key)) {
+                SessionData se = s.getValue();
+                if (se != null && !se.isExpired() && se.getValue() == otp) {
+                    return true; // Session data is valid
+                }
+            }
+        }
+
+        return false; // Session data is either expired or not found
     }
+
 
     public static void removeAttribute(String key) {
         sessionData.remove(key);
@@ -27,16 +45,20 @@ public class SessionManager {
     }
 
     private static class SessionData {
-        private Object value;
+        private Integer value;
         private long expirationTimeMillis;
 
-        SessionData(Object value, long durationMillis) {
+        SessionData(Integer value, long durationMillis) {
             this.value = value;
             this.expirationTimeMillis = System.currentTimeMillis() + durationMillis;
         }
 
-        Object getValue() {
+        public Integer getValue() {
             return value;
+        }
+
+        public void setValue(Integer value) {
+            this.value = value;
         }
 
         boolean isExpired() {
