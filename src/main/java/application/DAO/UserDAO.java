@@ -14,7 +14,7 @@ public abstract class UserDAO<T> {
     private static final SecureRandom random = new SecureRandom();
     public abstract Boolean login(T object);
     public abstract Boolean logout(T object);
-    public abstract Boolean verifyLogin(T user,Integer otp);
+    public abstract T verifyLogin(T user,Integer otp);
 
 
         public static int generateRandomCode(int numDigits) {
