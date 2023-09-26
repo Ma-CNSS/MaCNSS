@@ -71,6 +71,6 @@ CREATE TABLE cases (
                        Price float not null,
                        Type Type not null,
                        Status Status not null,
-                       Patient int references patients(cin),
+                       Patient varchar(20) references patients(cin),
                        SubmissionDate timestamp default current_timestamp not null
 );
