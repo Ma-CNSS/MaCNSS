@@ -2,14 +2,9 @@ package application.DAO;
 
 import application.Config.Datasource;
 import application.DTO.Admin;
-import application.DTO.Agent;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.Objects;
 
@@ -39,7 +34,7 @@ public class AdminDAO extends UserDAO<Admin>{
     }
 
     @Override
-    public Boolean verifyLogin(Admin user, Integer otp) {
+    public Admin verifyLogin(Admin user, Integer otp) {
         return null;
     }
 
