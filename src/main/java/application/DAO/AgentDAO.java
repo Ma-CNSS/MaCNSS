@@ -81,7 +81,7 @@ public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
     }
 
     public Agent verifyLogin(Agent agent, int opt){
-        if(SessionManager.getValue(agent.getEmail(), opt))
+        if(SessionManager.verifyValue(agent.getEmail(), opt))
             return agent;
         return null;
     }
@@ -93,7 +93,7 @@ public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
 
     @Override
     public Agent verifyLogin(Agent agent, Integer otp) {
-        if(SessionManager.getValue(agent.getEmail(), otp))
+        if(SessionManager.verifyValue(agent.getEmail(), otp))
             return agent;
         return null;
     }

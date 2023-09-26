@@ -11,18 +11,10 @@ public class SessionManager {
     public SessionManager() {
     }
 
-//    public static Map<String, Object> getInstance() {
-//            return sessionData;
-//    }
-
     public static void setAttribute(String key, Integer value, long durationMillis) {
         sessionData.put(key, new SessionData(value, durationMillis));
     }
-
-    //    public static Object getAttribute(String key) {
-//        return sessionData.get(key);
-//    }
-    public static Boolean getValue(String key, int otp) {
+    public static Boolean verifyValue(String key, int otp) {
         for (Map.Entry<String, SessionData> s : sessionData.entrySet()) {
             if (Objects.equals(s.getKey(), key)) {
                 SessionData se = s.getValue();
@@ -31,10 +23,8 @@ public class SessionManager {
                 }
             }
         }
-
         return false; // Session data is either expired or not found
     }
-
 
     public static void removeAttribute(String key) {
         sessionData.remove(key);
