@@ -13,12 +13,11 @@ public class AdminDAO extends UserDAO<Admin>{
     public Boolean login(Admin admin) {
         try {
             QueryRunner run = new QueryRunner(Datasource.getPostgreSQLDataSource());
-            ResultSetHandler<Admin> q = new BeanHandler(Admin.class);
+            ResultSetHandler<Admin> q = new BeanHandler<>(Admin.class);
             String sql = "SELECT * FROM admins WHERE email = ?";
             Admin a = run.query(sql, q, admin.getEmail());
             if (Objects.nonNull(a)){
-                admin.setPassword(hashPassword(admin.getPassword()));
-                return checkPassword(a.getPassword(), admin.getPassword());
+                return checkPassword(admin.getPassword(), a.getPassword());
             }else {
                 return false;
             }
