@@ -19,7 +19,7 @@ public class Main extends Application {
         scene.getStylesheets().add(getClass().getResource("styles/agent-style.css").toExternalForm());
         // stage config
         stage.setTitle("MaCNSS");
-        Image appImage = new Image("C:\\Users\\YC\\IdeaProjects\\MaCNSS\\src\\main\\resources\\application\\images\\cnss-logo-2.png");
+        Image appImage = new Image(getClass().getResource("images/cnss-logo-2.png").toURI().toURL().toExternalForm());
         stage.getIcons().add(appImage);
         stage.setScene(scene);
         stage.show();
