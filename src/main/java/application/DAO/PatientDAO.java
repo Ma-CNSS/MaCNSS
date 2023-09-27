@@ -2,8 +2,6 @@ package application.DAO;
 
 import application.Config.DBUtility;
 import application.Config.Datasource;
-import application.DTO.Case;
-import application.DTO.Category;
 import application.DTO.Patient;
 import application.Interfaces.CRUD;
 import org.apache.commons.dbutils.QueryRunner;
@@ -22,8 +20,8 @@ public class PatientDAO implements CRUD<Patient> {
     public Patient get(Patient patient) {
         try {
             QueryRunner run = new QueryRunner(Datasource.getPostgreSQLDataSource());
-            ResultSetHandler<Patient> q = new BeanHandler(Patient.class);
-            return (Patient) run.query("SELECT * FROM patients WHERE cin = ? OR name = ?", q, patient.getCIN(), patient.getName());
+            ResultSetHandler<Patient> q = new BeanHandler<>(Patient.class);
+            return run.query("SELECT * FROM patients WHERE cin = ? OR name = ?", q, patient.getCIN(), patient.getName());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -60,8 +58,8 @@ public class PatientDAO implements CRUD<Patient> {
         int numRowsUpdated = 0;
         try {
             QueryRunner runner = new QueryRunner();
-            String updateSQL = "UPDATE patients SET cin = ?, name = ?, email = ? WHERE id = ?";
-            numRowsUpdated = runner.update(connection, updateSQL, patient.getCIN(), patient.getName(), patient.getEmail());
+            String updateSQL = "UPDATE patients SET cin = ?, name = ?, email = ? WHERE cin = ?";
+            numRowsUpdated = runner.update(connection, updateSQL, patient.getCIN(), patient.getName(), patient.getEmail(), patient.getCIN());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
