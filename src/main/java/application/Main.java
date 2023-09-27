@@ -15,7 +15,6 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         // scene config
         Parent root = FXMLLoader.load(getClass().getResource("views/Agent/login.fxml"));
-//        Group root = new Group();
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("styles/agent-style.css").toExternalForm());
         // stage config
