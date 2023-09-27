@@ -37,6 +37,11 @@ public class AdminDAO extends UserDAO<Admin>{
         return null;
     }
 
+    @Override
+    public String generatePassword() {
+        return null;
+    }
+
     public Boolean update(Admin admin){
         return true;
     }
