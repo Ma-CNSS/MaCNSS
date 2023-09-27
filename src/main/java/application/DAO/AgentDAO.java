@@ -4,6 +4,7 @@ import application.Config.DBUtility;
 import application.Config.Datasource;
 import application.Config.SessionManager;
 import application.DTO.Agent;
+import application.Helpers.PasswordGenerator;
 import application.Interfaces.CRUD;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
@@ -80,12 +81,6 @@ public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
         }
     }
 
-    public Agent verifyLogin(Agent agent, int opt){
-        if(SessionManager.verifyValue(agent.getEmail(), opt))
-            return agent;
-        return null;
-    }
-
     @Override
     public Boolean logout(Agent object) {
         return null;
@@ -96,6 +91,11 @@ public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
         if(SessionManager.verifyValue(agent.getEmail(), otp))
             return agent;
         return null;
+    }
+
+    @Override
+    public String generatePassword() {
+        return PasswordGenerator.generatePassword(12);
     }
 
     @Override
@@ -127,8 +127,13 @@ public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
         try {
             QueryRunner runner = new QueryRunner();
             String insertSQL = "INSERT INTO agents (firstName, lastName, email, password) VALUES (?,?,?,?)";
-            int numRowsInserted = runner.update(connection, insertSQL, agent.getFirstName(), agent.getLastName(), agent.getEmail(), agent.getPassword());
-            return numRowsInserted > 0;
+            agent.setPassword(generatePassword());
+            int numRowsInserted = runner.update(connection, insertSQL, agent.getFirstName(), agent.getLastName(), agent.getEmail(), hashPassword(agent.getPassword()));
+            if (numRowsInserted > 0){
+                String body    = "Congratulations, Your account has been created.\nKindly use this password to login in to your account: ";
+                String subject = "MaCNSS agent Account created";
+                return sendMail(body + agent.getPassword(), subject, agent.getEmail());
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
