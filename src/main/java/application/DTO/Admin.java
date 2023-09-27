@@ -3,9 +3,9 @@ package application.DTO;
 public class Admin extends User {
     private static Admin instance;
     public Admin(){}
-    public Admin(String firstName, String lastName, String email, String password){
-        setFirstName(firstName);
-        setLastName(lastName);
+    public Admin(String email, String password){
+//        setFirstName(firstName);
+//        setLastName(lastName);
         setEmail(email);
         setPassword(password);
     }
