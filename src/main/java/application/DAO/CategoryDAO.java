@@ -2,7 +2,6 @@ package application.DAO;
 
 import application.Config.DBUtility;
 import application.Config.Datasource;
-import application.DTO.Case;
 import application.DTO.Category;
 import application.Interfaces.CRUD;
 import org.apache.commons.dbutils.QueryRunner;
@@ -20,8 +19,8 @@ public class CategoryDAO implements CRUD<Category> {
     public Category get(Category category) {
         try {
             QueryRunner run = new QueryRunner(Datasource.getPostgreSQLDataSource());
-            ResultSetHandler<Category> q = new BeanHandler(Category.class);
-            return (Category) run.query("SELECT * FROM categories WHERE id = ? OR name = ?", q, category.getId(), category.getName());
+            ResultSetHandler<Category> q = new BeanHandler<>(Category.class);
+            return run.query("SELECT * FROM categories WHERE id = ? OR name = ?", q, category.getId(), category.getName());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

@@ -2,8 +2,6 @@ package application.DAO;
 
 import application.Config.DBUtility;
 import application.Config.Datasource;
-import application.DTO.Case;
-import application.DTO.Category;
 import application.DTO.DocType;
 import application.Interfaces.CRUD;
 import org.apache.commons.dbutils.QueryRunner;
@@ -22,8 +20,8 @@ public class DocTypeDAO implements CRUD<DocType> {
     public DocType get(DocType docType) {
         try {
             QueryRunner run = new QueryRunner(Datasource.getPostgreSQLDataSource());
-            ResultSetHandler<DocType> q = new BeanHandler(DocType.class);
-            return (DocType) run.query("SELECT * FROM doctypes WHERE id = ? OR name = ?", q, docType.getId(), docType.getName());
+            ResultSetHandler<DocType> q = new BeanHandler<>(DocType.class);
+            return run.query("SELECT * FROM doctypes WHERE id = ? OR name = ?", q, docType.getId(), docType.getName());
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
