@@ -1,7 +1,9 @@
 package application.Controllers;
 
 import application.DAO.AdminDAO;
+import application.DAO.AgentDAO;
 import application.DTO.Admin;
+import application.DTO.Agent;
 import application.Helpers.Validator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,7 +30,18 @@ public class AdminController {
     @FXML
     private Label loginWarning;
 
+    // agent info
+    @FXML
+    private TextField agentFirstName;
+    @FXML
+    private TextField agentLastName;
+    @FXML
+    private TextField agentEmail;
+    @FXML
+    private Label successMessage;
+
     private Admin admin;
+    private Agent agent;
 
     public AdminController() {
     }
@@ -58,9 +71,37 @@ public class AdminController {
         stage.show();
     }
 
+    @FXML
+    protected void addAgentView(ActionEvent event) throws Exception {
+        root = FXMLLoader.load(getClass().getResource("/application/views/Admin/addAgent.fxml"));
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    protected void addAgent(ActionEvent event) {
+        Validator validator = new Validator();
+        if (validator.validateEmail(agentEmail)) {
+            agent = new Agent();
+            agent.setFirstName(agentFirstName.getText().strip());
+            agent.setLastName(agentLastName.getText().strip());
+            agent.setEmail(agentEmail.getText().strip());
+            AgentDAO agentDAO = new AgentDAO();
+            // TODO: Login credentials even if true it returns false!
+            if (agentDAO.add(agent))
+                successMessage.setText("Agent added Successfully");
+            else
+                logingAlert("Internal Server Error");
+        }else {
+            logingAlert("Invalid email");
+        }
+    }
+
     public void logingAlert(String message) {
-        loginWarning.setText(message);
-        loginWarning.setPrefWidth(286.0);
-        loginWarning.setPadding(new Insets(5, 10, 5, 10));
+        successMessage.setText(message);
+        successMessage.setPrefWidth(286.0);
+        successMessage.setPadding(new Insets(5, 10, 5, 10));
     }
 }

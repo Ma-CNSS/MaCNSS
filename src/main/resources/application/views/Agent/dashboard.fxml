@@ -36,7 +36,7 @@
                         <Image url="@../../images/cnss-logo-1.png" />
                      </image>
                   </ImageView>
-                  <Button layoutX="27.0" layoutY="244.0" mnemonicParsing="false" text="Add New Refund File" />
+                  <Button layoutX="27.0" layoutY="244.0" mnemonicParsing="false" text="Add New Refund File" onAction="#addCaseView" />
                   <Button layoutX="27.0" layoutY="290.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="127.0" text="Edit a Refund File" />
                   <Label layoutX="31.0" layoutY="168.0" text="Welcome Mr.Agent" textFill="#007b71">
                      <font>

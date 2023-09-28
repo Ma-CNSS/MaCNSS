@@ -2,7 +2,6 @@
 
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -12,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane focusTraversable="true" prefHeight="598.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controllers.AgentController">
+<AnchorPane focusTraversable="true" prefHeight="598.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controllers.AdminController">
     <children>
         <ScrollPane layoutX="1.0" prefHeight="598.0" prefWidth="1024.0">
             <content>
@@ -23,32 +22,39 @@
                                 <Image url="@../../images/cnss-logo-1.png" />
                             </image>
                         </ImageView>
-                        <Button layoutX="27.0" layoutY="244.0" mnemonicParsing="false" text="Add New Refund File" />
-                        <Button layoutX="27.0" layoutY="290.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="127.0" text="Edit a Refund File" />
+                        <Button layoutX="27.0" layoutY="244.0" mnemonicParsing="false" text="Add New Agent" />
+                        <Button layoutX="27.0" layoutY="290.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="127.0" text="Edit Agent" />
                         <Label layoutX="31.0" layoutY="168.0" text="Welcome Mr.Agent" textFill="#007b71">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </Label>
                         <Button layoutX="27.0" layoutY="539.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="126.0" text="Logout" />
-                      <Label layoutX="256.0" layoutY="67.0" text="Add New Refund File" textFill="#004f9e">
-                         <font>
-                            <Font name="System Bold" size="18.0" />
-                         </font>
-                      </Label>
+                  <Label layoutX="256.0" layoutY="67.0" text="Add New Agent" textFill="#004f9e">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
                   <Group layoutX="256.0" layoutY="156.0">
                      <children>
-                        <TextField fx:id="agentFirstName" prefHeight="31.0" prefWidth="359.0" promptText="Total Cost" />
-                        <Label layoutY="-30.0" text="Total Cost" />
+                        <TextField fx:id="agentFirstName" prefHeight="31.0" prefWidth="359.0" promptText="First Name" />
+                        <Label layoutY="-30.0" text="First Name" />
                      </children>
                   </Group>
                   <Separator layoutX="195.0" layoutY="4.0" orientation="VERTICAL" prefHeight="598.0" prefWidth="0.0" />
-                  <Group layoutX="635.0" layoutY="156.0">
+                  <Group layoutX="256.0" layoutY="244.0">
                      <children>
-                        <ChoiceBox fx:id="caseFileType" focusTraversable="false" prefHeight="29.0" prefWidth="150.0" />
-                        <Label layoutY="-30.0" text="Refund File Type" />
+                        <TextField fx:id="agentLastName" prefHeight="31.0" prefWidth="359.0" promptText="Last Name" />
+                        <Label layoutY="-30.0" text="Last Name" />
                      </children>
                   </Group>
+                  <Group layoutX="256.0" layoutY="327.0">
+                     <children>
+                        <TextField fx:id="agentEmail" prefHeight="31.0" prefWidth="359.0" promptText="Email" />
+                        <Label layoutY="-30.0" text="Email" />
+                     </children>
+                  </Group>
+                  <Button layoutX="256.0" layoutY="396.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="359.0" text="Add" onAction="#addAgent" />
                   <Label fx:id="successMessage" layoutX="256.0" layoutY="460.0" textFill="#00a895">
                      <font>
                         <Font size="14.0" />

@@ -36,7 +36,7 @@
                                 <Image url="@../../images/cnss-logo-1.png" />
                             </image>
                         </ImageView>
-                        <Button layoutX="26.0" layoutY="240.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="126.0" text="Add New Agent " />
+                        <Button layoutX="26.0" layoutY="240.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="126.0" text="Add New Agent " onAction="#addAgentView" />
                         <Button layoutX="26.0" layoutY="284.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="126.0" text="View All Refund Files" />
                         <Label layoutX="31.0" layoutY="168.0" text="Welcome Mr.Admin" textFill="#007b71">
                             <font>
