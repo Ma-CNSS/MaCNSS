@@ -15,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class AdminController {
 
     Stage stage;
@@ -64,7 +66,7 @@ public class AdminController {
 
     @FXML
     protected void adminDashboard(ActionEvent event) throws Exception {
-        root = FXMLLoader.load(getClass().getResource("/application/views/Admin/dashboard.fxml"));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/application/views/Admin/dashboard.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -73,7 +75,7 @@ public class AdminController {
 
     @FXML
     protected void addAgentView(ActionEvent event) throws Exception {
-        root = FXMLLoader.load(getClass().getResource("/application/views/Admin/addAgent.fxml"));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/application/views/Admin/addAgent.fxml")));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
