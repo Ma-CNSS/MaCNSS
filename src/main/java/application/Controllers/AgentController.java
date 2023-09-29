@@ -90,7 +90,7 @@ public class AgentController implements Initializable {
 
     @FXML
     protected void agentDashBoard(ActionEvent event) throws Exception {
-        root = FXMLLoader.load(getClass().getResource("/application/views/Agent/dashboard.fxml"));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/application/views/Agent/dashboard.fxml")));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -99,7 +99,7 @@ public class AgentController implements Initializable {
 
     @FXML
     protected void adminLoginView(ActionEvent event) throws Exception {
-        root = FXMLLoader.load(getClass().getResource("/application/views/Admin/login.fxml"));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/application/views/Admin/login.fxml")));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -108,7 +108,7 @@ public class AgentController implements Initializable {
 
     @FXML
     protected void addCaseView(ActionEvent event) throws Exception {
-        root = FXMLLoader.load(getClass().getResource("/application/views/Agent/addCase.fxml"));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/application/views/Agent/addCase.fxml")));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

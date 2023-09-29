@@ -9,46 +9,48 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane focusTraversable="true" prefHeight="598.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controllers.AdminController">
-    <children>
-        <Label layoutX="369.0" layoutY="333.0" text="Password">
-            <font>
-                <Font size="14.0" />
-            </font>
-        </Label>
-        <Label layoutX="369.0" layoutY="245.0" text="Email">
-            <font>
-                <Font size="14.0" />
-            </font>
-        </Label>
-        <TextField fx:id="adminEmail" focusTraversable="false" layoutX="369.0" layoutY="269.0" prefHeight="40.0" prefWidth="285.0" promptText="Email">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </TextField>
-        <PasswordField fx:id="adminPassword" focusTraversable="false" layoutX="369.0" layoutY="357.0" prefHeight="40.0" prefWidth="286.0" promptText="Password">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </PasswordField>
-        <Button fx:id="adminLoginBtn" focusTraversable="false" layoutX="369.0" layoutY="425.0" mnemonicParsing="false" onAction="#submit" prefWidth="286.0" text="Login">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </Button>
-        <ImageView fitHeight="110.0" fitWidth="107.0" layoutX="459.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../../images/cnss-logo-1.png" />
-            </image>
-        </ImageView>
-        <Label fx:id="loginWarning" alignment="TOP_LEFT" layoutX="369.0" layoutY="216.0" textFill="RED">
-            <font>
-                <Font size="14.0" />
-            </font></Label>
-      <Label layoutX="472.0" layoutY="179.0" text="Admin Login" textFill="#00777b">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-      </Label>
-    </children>
+<AnchorPane focusTraversable="true" prefHeight="598.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/20.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controllers.AdminController">
+    <Label layoutX="369.0" layoutY="333.0" text="Password">
+        <font>
+            <Font size="14.0"/>
+        </font>
+    </Label>
+    <Label layoutX="369.0" layoutY="245.0" text="Email">
+        <font>
+            <Font size="14.0"/>
+        </font>
+    </Label>
+    <TextField fx:id="adminEmail" focusTraversable="false" layoutX="369.0" layoutY="269.0" prefHeight="40.0"
+               prefWidth="285.0" promptText="Email">
+        <font>
+            <Font size="18.0"/>
+        </font>
+    </TextField>
+    <PasswordField fx:id="adminPassword" focusTraversable="false" layoutX="369.0" layoutY="357.0" prefHeight="40.0"
+                   prefWidth="286.0" promptText="Password">
+        <font>
+            <Font size="18.0"/>
+        </font>
+    </PasswordField>
+    <Button fx:id="adminLoginBtn" focusTraversable="false" layoutX="369.0" layoutY="425.0" mnemonicParsing="false"
+            onAction="#submit" prefWidth="286.0" text="Login">
+        <font>
+            <Font size="18.0"/>
+        </font>
+    </Button>
+    <ImageView fitHeight="110.0" fitWidth="107.0" layoutX="459.0" layoutY="56.0" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@../../images/cnss-logo-1.png"/>
+    </ImageView>
+    <Label fx:id="loginWarning" alignment="TOP_LEFT" layoutX="369.0" layoutY="216.0" textFill="RED">
+        <font>
+            <Font size="14.0"/>
+        </font>
+    </Label>
+    <Label layoutX="472.0" layoutY="179.0" text="Admin Login" textFill="#00777b">
+        <font>
+          <Font name="System Bold" size="13.0"/>
+        </font>
+    </Label>
 </AnchorPane>
