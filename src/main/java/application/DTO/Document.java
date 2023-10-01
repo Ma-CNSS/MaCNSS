@@ -8,6 +8,7 @@ public class Document {
     private double Price;
     private URL URL;
     private DocType DocType;
+    private Case casee;
     private Date CreatedAt;
 
     public int getCode() {
@@ -44,6 +45,14 @@ public class Document {
 
     public Date getCreatedAt() {
         return CreatedAt;
+    }
+
+    public Case getCasee() {
+        return casee;
+    }
+
+    public void setCasee(Case casee) {
+        this.casee = casee;
     }
 
     public void setCreatedAt(Date createdAt) {

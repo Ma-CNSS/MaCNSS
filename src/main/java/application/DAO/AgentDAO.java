@@ -6,24 +6,22 @@ import application.Config.SessionManager;
 import application.DTO.Agent;
 import application.Helpers.PasswordGenerator;
 import application.Interfaces.CRUD;
+import application.Services.EmailService;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
 
     public static String username;
     public static String password;
-    public String emailMessage = "Hello dear agent, here is your one time password: \nThis password expires in 10 minutes: ";
-    public String subject = "Verification mail";
 
     static {
         ResourceBundle rd = ResourceBundle.getBundle("mailing");
@@ -32,35 +30,9 @@ public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
     }
 
     private final Connection connection = DBUtility.getInstance();
+    public String emailMessage = "Hello dear agent, here is your one time password: \nThis password expires in 10 minutes: ";
+    public String subject = "Verification mail";
 //    private Map<String, Object> session = SessionManager.getInstance();
-
-    public static Boolean sendMail(String body, String subject, String email) {
-
-        Properties properties = System.getProperties();
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.host", "smtp.gmail.com");
-        properties.put("mail.smtp.port", "587");
-        properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
-        properties.put("mail.smtp.starttls.enable", "true");
-        Session session = Session.getInstance(properties, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(AgentDAO.username, AgentDAO.password);
-            }
-        });
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(AgentDAO.username));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-            message.setSubject(subject);
-            message.setText(body);
-            Transport.send(message);
-            return true;
-        } catch (MessagingException e) {
-            System.out.println(e.getMessage());
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     public Boolean login(Agent agent) {
@@ -72,7 +44,7 @@ public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
             if (Objects.nonNull(a) && checkPassword(agent.getPassword(), a.getPassword())) {
                 int otp = generateRandomCode(6);
                 SessionManager.setAttribute(agent.getEmail(), otp, 600000);
-                return AgentDAO.sendMail(emailMessage + otp, subject, agent.getEmail());
+                return EmailService.sendMail(emailMessage + otp, subject, agent.getEmail());
             }
             return false;
         } catch (SQLException | RuntimeException e) {
@@ -88,7 +60,7 @@ public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
 
     @Override
     public Agent verifyLogin(Agent agent, Integer otp) {
-        if(SessionManager.verifyValue(agent.getEmail(), otp))
+        if (SessionManager.verifyValue(agent.getEmail(), otp))
             return agent;
         return null;
     }
@@ -129,10 +101,10 @@ public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
             String insertSQL = "INSERT INTO agents (firstName, lastName, email, password) VALUES (?,?,?,?)";
             agent.setPassword(generatePassword());
             int numRowsInserted = runner.update(connection, insertSQL, agent.getFirstName(), agent.getLastName(), agent.getEmail(), hashPassword(agent.getPassword()));
-            if (numRowsInserted > 0){
-                String body    = "Congratulations, Your account has been created.\nKindly use this password to login in to your account: ";
+            if (numRowsInserted > 0) {
+                String body = "Congratulations, Your account has been created.\nKindly use this password to login in to your account: ";
                 String subject = "MaCNSS agent Account created";
-                return sendMail(body + agent.getPassword(), subject, agent.getEmail());
+                return EmailService.sendMail(body + agent.getPassword(), subject, agent.getEmail());
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

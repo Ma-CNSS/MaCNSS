@@ -8,6 +8,9 @@ public class MedicineInstance {
         this.casee = casee;
         this.medicine = medicine;
     }
+    public MedicineInstance(Case casee) {
+        this.casee = casee;
+    }
 
     public Case getCasee() {
         return casee;

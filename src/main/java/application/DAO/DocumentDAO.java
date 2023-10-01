@@ -3,16 +3,18 @@ package application.DAO;
 import application.Config.DBUtility;
 import application.Config.Datasource;
 import application.DTO.Case;
-import application.DTO.Category;
+import application.DTO.DocType;
 import application.DTO.Document;
 import application.Interfaces.CRUD;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
-import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DocumentDAO implements CRUD<Document> {
@@ -21,9 +23,23 @@ public class DocumentDAO implements CRUD<Document> {
     @Override
     public Document get(Document document) {
         try {
-            QueryRunner run = new QueryRunner(Datasource.getPostgreSQLDataSource());
-            ResultSetHandler<Document> q = new BeanHandler(Document.class);
-            return (Document) run.query("SELECT * FROM documents WHERE code = ? OR doctype = ?", q, document.getCode(), document.getDocType().getName());
+            String query = "SELECT d.code, d.price, d.url, d.createdat, t.id, c.id FROM documents d INNER JOIN public.doctypes t on t.id = d.doctype INNER JOIN public.cases c on c.id = d.casee WHERE code = ?";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setInt(1, document.getCode());
+            Case casee = new Case();
+            DocType docType = new DocType();
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()){
+                document.setCode(resultSet.getInt(1));
+                document.setPrice(resultSet.getDouble(2));
+                document.setURL(resultSet.getURL(3));
+                document.setCreatedAt(resultSet.getDate(4));
+                casee.setId(resultSet.getInt(5));
+                docType.setId(resultSet.getInt(6));
+                document.setDocType(docType);
+                document.setCasee(casee);
+            }
+            return document;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -41,11 +57,27 @@ public class DocumentDAO implements CRUD<Document> {
         }
         return null;
     }
-    public List<Document> getAllByCase(Case casee) {
+    public Case getAllByCase(Case casee) {
+        List<Document> documents = new ArrayList<Document>();
         try {
-            QueryRunner run = new QueryRunner(Datasource.getPostgreSQLDataSource());
-            ResultSetHandler<List<Document>> q = new BeanListHandler<>(Document.class);
-            return run.query("SELECT * FROM documents WHERE case ", q);
+            String query = "SELECT d.code, d.price, d.url, d.createdat, t.id FROM documents d INNER JOIN public.doctypes t on t.id = d.doctype WHERE d.casee = ?";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setInt(1, casee.getId());
+            DocType docType = new DocType();
+            ResultSet resultSet = stmt.executeQuery();
+            Document document = new Document();
+            while (resultSet.next()){
+                document.setCode(resultSet.getInt(1));
+                document.setPrice(resultSet.getDouble(2));
+                document.setURL(resultSet.getURL(3));
+                document.setCreatedAt(resultSet.getDate(4));
+                docType.setId(resultSet.getInt(6));
+                document.setDocType(docType);
+                document.setCasee(casee);
+                documents.add(document);
+            }
+            casee.setDocuments(documents);
+            return casee;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -56,8 +88,8 @@ public class DocumentDAO implements CRUD<Document> {
     public Boolean add(Document document) {
         try {
             QueryRunner runner = new QueryRunner();
-            String insertSQL = "INSERT INTO documents (price, doctype) VALUES (?,?)";
-            int numRowsInserted = runner.update(connection, insertSQL, document.getPrice(), document.getDocType().getId());
+            String insertSQL = "INSERT INTO documents (price, doctype, casee, url) VALUES (?,?,?,?)";
+            int numRowsInserted = runner.update(connection, insertSQL, document.getPrice(), document.getDocType().getId(), document.getCasee().getId(), document.getURL());
             return numRowsInserted > 0;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
