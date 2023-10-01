@@ -8,6 +8,7 @@ module application {
     requires javafx.controls;
     requires javafx.fxml;
     requires jbcrypt;
+    requires cloudinary.core;
 
 
     opens application to javafx.fxml;

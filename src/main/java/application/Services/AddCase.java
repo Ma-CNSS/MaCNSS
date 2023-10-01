@@ -11,20 +11,21 @@ import application.DTO.MedicineInstance;
 import java.util.List;
 
 public class AddCase {
-    public static boolean execute(Case casee, List<Medicine> medicines, List<Document> documents) {
+    public static boolean execute(Case casee) {
         CaseDAO caseDAO = new CaseDAO();
         MedicineInstanceDAO medicineInstanceDAO = new MedicineInstanceDAO();
         DocumentDAO documentDAO = new DocumentDAO();
 
         if (caseDAO.add(casee)) {
-            for (Medicine m : medicines) {
-                MedicineInstance medicineInstance = new MedicineInstance(casee, m);
+                MedicineInstance medicineInstance = new MedicineInstance(casee);
+            for (Medicine m : casee.getMedicines()) {
+                medicineInstance.setMedicine(m);
                 if (!medicineInstanceDAO.add(medicineInstance)) {
                     return false;
                 }
             }
 
-            for (Document d : documents) {
+            for (Document d : casee.getDocuments()) {
                 d.getCasee().setId(casee.getId());
                 if (!documentDAO.add(d)) {
                     return false;
