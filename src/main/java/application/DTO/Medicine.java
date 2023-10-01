@@ -1,5 +1,7 @@
 package application.DTO;
 
+import application.DAO.CategoryDAO;
+
 import java.util.Date;
 
 public class Medicine {
@@ -92,8 +94,8 @@ public class Medicine {
         return PG;
     }
 
-    public void setPG(char PG) {
-        this.PG = PG;
+    public void setPG(String PG) {
+        this.PG = PG.charAt(0);
     }
 
     public Category getCategory() {

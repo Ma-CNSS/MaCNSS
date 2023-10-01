@@ -1,5 +1,3 @@
-
-
 \c
 macnss;
 
@@ -51,11 +49,12 @@ CREATE TABLE cases
 );
 CREATE TABLE documents
 (
-    Code      serial primary key,
-    Price     float                               not null,
-    DocType   int references doctypes (id),
-    Casee      int references cases (Id),
-    CreatedAt timestamp default current_timestamp not null
+    Code    serial primary key,
+    Price   float not null,
+    DocType int references doctypes (id),
+    Casee   int references cases (Id),
+    url     text,
+        CreatedAt timestamp default current_timestamp not null
 );
 
 CREATE TABLE categories
@@ -82,7 +81,7 @@ CREATE TABLE medicins
 );
 CREATE TABLE medicineInstance
 (
-    Casee     int references cases (Id),
+    Casee    int references cases (Id),
     Medicine int references medicins (Code)
 );
 
