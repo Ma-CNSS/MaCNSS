@@ -2,7 +2,7 @@ package application.Controllers;
 
 import application.DAO.AgentDAO;
 import application.DTO.Agent;
-import application.ENUMS.Type;
+import application.ENUMS.CaseType;
 import application.Helpers.Validator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AgentController implements Initializable {
@@ -50,7 +49,7 @@ public class AgentController implements Initializable {
 
     // choice box
 //    @FXML
-//    private ChoiceBox<Type> caseFileType = new ChoiceBox<Type>(Enum.valueOf(Type.values()));
+//    private ChoiceBox<CaseType> caseFileType = new ChoiceBox<CaseType>(Enum.valueOf(CaseType.values()));
 
 //    private String[] lft = {"hi", "how","hey"};
 
@@ -65,7 +64,7 @@ public class AgentController implements Initializable {
     @FXML
     protected void submit(ActionEvent event) throws Exception {
         Validator validator = new Validator();
-        if (validator.validateEmail(agentEmail) && validator.validatePassword(agentPassword)) {
+//        if (validator.validateEmail(agentEmail) && validator.validatePassword(agentPassword)) {
             agent = new Agent(agentEmail.getText(), agentPassword.getText());
             AgentDAO agentDAO = new AgentDAO();
             if (agentDAO.login(agent)) {
@@ -75,7 +74,7 @@ public class AgentController implements Initializable {
 //                Optional<String> result = codeConfirmation.showAndWait();
 //                if (result.isPresent() && !result.get().isEmpty()) {
 //                    if (agentDAO.verifyLogin(agent, Integer.parseInt(result.get())) != null)
-                System.out.println(Arrays.toString(Type.values()));
+                System.out.println(Arrays.toString(CaseType.values()));
                         agentDashBoard(event);
 //                } else {
 //                    logingAlert("Please Enter a Verification Code");
@@ -83,9 +82,9 @@ public class AgentController implements Initializable {
             } else {
                 logingAlert("Wrong Credentials");
             }
-        }else {
-            logingAlert("Invalid Credentials");
-        };
+//        }else {
+//            logingAlert("Invalid Credentials");
+//        };
     }
 
     @FXML

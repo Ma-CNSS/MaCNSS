@@ -20,15 +20,6 @@ import java.util.ResourceBundle;
 
 public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
 
-    public static String username;
-    public static String password;
-
-    static {
-        ResourceBundle rd = ResourceBundle.getBundle("mailing");
-        username = rd.getString("mail.username");
-        password = rd.getString("mail.password");
-    }
-
     private final Connection connection = DBUtility.getInstance();
     public String emailMessage = "Hello dear agent, here is your one time password: \nThis password expires in 10 minutes: ";
     public String subject = "Verification mail";
@@ -36,6 +27,7 @@ public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
 
     @Override
     public Boolean login(Agent agent) {
+//        return true;
         try {
             QueryRunner run = new QueryRunner(Datasource.getPostgreSQLDataSource());
             ResultSetHandler<Agent> q = new BeanHandler<>(Agent.class);
@@ -43,8 +35,9 @@ public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
             Agent a = run.query(sql, q, agent.getEmail());
             if (Objects.nonNull(a) && checkPassword(agent.getPassword(), a.getPassword())) {
                 int otp = generateRandomCode(6);
-                SessionManager.setAttribute(agent.getEmail(), otp, 600000);
-                return EmailService.sendMail(emailMessage + otp, subject, agent.getEmail());
+//                SessionManager.setAttribute(agent.getEmail(), otp, 600000);
+//                return EmailService.sendMail(emailMessage + otp, subject, agent.getEmail());
+                return true;
             }
             return false;
         } catch (SQLException | RuntimeException e) {
@@ -100,7 +93,7 @@ public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
             QueryRunner runner = new QueryRunner();
             String insertSQL = "INSERT INTO agents (firstName, lastName, email, password) VALUES (?,?,?,?)";
             agent.setPassword(generatePassword());
-            int numRowsInserted = runner.update(connection, insertSQL, agent.getFirstName(), agent.getLastName(), agent.getEmail(), hashPassword(agent.getPassword()));
+            int numRowsInserted = runner.update(connection, insertSQL, agent.getFirstName(), agent.getLast_name(), agent.getEmail(), hashPassword(agent.getPassword()));
             if (numRowsInserted > 0) {
                 String body = "Congratulations, Your account has been created.\nKindly use this password to login in to your account: ";
                 String subject = "MaCNSS agent Account created";
@@ -119,7 +112,7 @@ public class AgentDAO extends UserDAO<Agent> implements CRUD<Agent> {
             QueryRunner runner = new QueryRunner();
             String updateSQL
                     = "UPDATE agents SET firstname = ?, lastname = ?, email = ?, password = ? WHERE id = ?";
-            numRowsUpdated = runner.update(connection, updateSQL, agent.getFirstName(), agent.getLastName(), agent.getEmail(), agent.getPassword(), agent.getId());
+            numRowsUpdated = runner.update(connection, updateSQL, agent.getFirstName(), agent.getLast_name(), agent.getEmail(), agent.getPassword(), agent.getId());
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

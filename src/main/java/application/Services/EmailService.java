@@ -1,13 +1,20 @@
 package application.Services;
 
-import application.DAO.AgentDAO;
-
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 public class EmailService {
+    public static String username;
+    public static String password;
+
+    static {
+        ResourceBundle rd = ResourceBundle.getBundle("mailing");
+        username = rd.getString("mail.username");
+        password = rd.getString("mail.password");
+    }
     public static Boolean sendMail(String body, String subject, String email) {
 
         Properties properties = System.getProperties();
@@ -19,12 +26,12 @@ public class EmailService {
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(AgentDAO.username, AgentDAO.password);
+                return new PasswordAuthentication(username, password);
             }
         });
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(AgentDAO.username));
+            message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
             message.setSubject(subject);
             message.setText(body);

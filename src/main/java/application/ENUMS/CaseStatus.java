@@ -1,6 +1,6 @@
 package application.ENUMS;
 
-public enum Status {
+public enum CaseStatus {
     MEDICAL,
     OPTIC,
     AESTHETIC

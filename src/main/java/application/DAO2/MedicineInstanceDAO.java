@@ -1,8 +1,8 @@
-//package application.DAO;
+//package application.DAO2.DAO;
 //
 //import application.Config.DBUtility;
 //import application.Config.Datasource;
-//import application.DTO.*;
+//import application.DTO.MedicineInstance;
 //import application.Interfaces.CRUD;
 //import org.apache.commons.dbutils.QueryRunner;
 //import org.apache.commons.dbutils.ResultSetHandler;
@@ -10,10 +10,7 @@
 //import org.apache.commons.dbutils.handlers.BeanListHandler;
 //
 //import java.sql.Connection;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
 //import java.sql.SQLException;
-//import java.util.ArrayList;
 //import java.util.List;
 //
 //public class MedicineInstanceDAO implements CRUD<MedicineInstance> {

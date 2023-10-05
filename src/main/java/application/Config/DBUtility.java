@@ -1,6 +1,8 @@
 package application.Config;
 
 //import org.apache.commons.dbutils.BasicDataSource;
+import com.sun.mail.iap.ConnectionException;
+
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -46,6 +48,17 @@ public class DBUtility {
 
 
         return connection;
+    }
+
+    public static Connection closeConnection(){
+        try {
+            instance.close();
+            instance = null;
+            return null;
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return instance;
     }
 
 }

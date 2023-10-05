@@ -4,16 +4,16 @@ import java.util.Date;
 import java.util.List;
 
 public class Patient {
-    private int CIN;
+    private String CIN;
     private String Name;
     private String Email;
     private Date CreatedAt;
 
-    public int getCIN() {
+    public String getCIN() {
         return CIN;
     }
 
-    public void setCIN(int CIN) {
+    public void setCIN(String CIN) {
         this.CIN = CIN;
     }
 

@@ -1,8 +1,11 @@
-//package application.DAO;
+//package application.DAO2.DAO;
 //
 //import application.Config.DBUtility;
 //import application.Config.Datasource;
-//import application.DTO.*;
+//import application.DTO.Case;
+//import application.DTO.Document;
+//import application.DTO.Medicine;
+//import application.DTO.Patient;
 //import application.ENUMS.CaseStatus;
 //import application.ENUMS.CaseType;
 //import application.Interfaces.CRUD;

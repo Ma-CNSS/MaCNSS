@@ -88,7 +88,7 @@ public class AdminController {
         if (validator.validateEmail(agentEmail)) {
             agent = new Agent();
             agent.setFirstName(agentFirstName.getText().strip());
-            agent.setLastName(agentLastName.getText().strip());
+            agent.setLast_name(agentLastName.getText().strip());
             agent.setEmail(agentEmail.getText().strip());
             AgentDAO agentDAO = new AgentDAO();
             // TODO: Login credentials even if true it returns false!

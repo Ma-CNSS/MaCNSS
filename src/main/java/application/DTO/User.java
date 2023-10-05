@@ -5,7 +5,7 @@ import java.util.Date;
 public abstract class User {
     private int Id;
     private String FirstName;
-    private String LastName;
+    private String Last_name;
     private String Email;
     private String Password;
     private Date CreatedAt;
@@ -26,12 +26,12 @@ public abstract class User {
         this.FirstName = firstName;
     }
 
-    public String getLastName() {
-        return LastName;
+    public String getLast_name() {
+        return Last_name;
     }
 
-    public void setLastName(String lastName) {
-        this.LastName = lastName;
+    public void setLast_name(String Last_name) {
+        this.Last_name = Last_name;
     }
 
     public String getEmail() {

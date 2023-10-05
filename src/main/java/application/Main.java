@@ -1,5 +1,7 @@
 package application;
 
+import application.DAO2.AgentDAO;
+import application.DTO.Agent;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -7,11 +9,28 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 
-import java.util.Objects;
+import java.util.*;
 
 public class Main extends Application {
     public static void main(String[] args){
-        launch();
+
+        AgentDAO agentDAO = new AgentDAO();
+        Agent agent = new Agent();
+
+        Map<String , Object> c = new HashMap<>();
+        c.put("Email","bhb@juj");
+
+
+//        Agent agent1 = agentDAO.where(c);
+//        System.out.println();
+
+//        agentDAO.where("sidat").and();
+//
+//        for(Agent a : agentDAO.find(c)){
+//            System.out.println(a.getLast_name());
+//        }
+
+
     }
     @Override
     public void start(Stage stage) throws Exception {

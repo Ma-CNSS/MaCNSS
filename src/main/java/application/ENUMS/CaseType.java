@@ -1,6 +1,6 @@
 package application.ENUMS;
 
-public enum Type {
+public enum CaseType {
     INPROGRESS,
     APPROVED,
     DECLINED
